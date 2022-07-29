@@ -1,0 +1,56 @@
+sleepPeriodPerRequest: 1000
+spring:
+#  data:
+#    gemfire:
+#      locators: localhost[10444]
+  main:
+    allow-circular-references: true
+  data.gemfire.pool.locators: localhost[10334]
+  application:
+    name: vital-edge-device-mqtt-app-processor
+server:
+  port: 8094
+mqtt:
+  userName: guest
+  userPassword: guest
+
+vitals:
+  minLocationCode: 10000
+  maxLocationCode: 10003
+  minVitalId: 1
+  maxVitalId: 8
+  count: 8
+  urlPrefix: vitalImg/secret/
+  names: John Smith, Brittany Barnes, Cherry Jones, Jane Foster, Tina Thompson, Jane Hill, Jessica Rose, Elizabeth Jordan,
+  vitalSigns:
+    urlSuffix: ".jpg"
+    registerInterestPattern: .*
+
+  mqtt:
+    topic: vitals
+  vitalId: 1
+  vitalStomp:
+    destination: /topic/vitalSigns
+vital:
+  alarms:
+    goodCountThreshold: 100
+    warningLow: 101
+    warningHigh: 200
+  alert:
+    queue: "vitalAlerts"
+    note: "Detected at the edge"
+  heartRate:
+    min: 52
+    max: 107
+  bodyTemperature:
+    min: 93
+    max: 110
+  respirationRate:
+    min: 10
+    max: 17
+  bloodPressureSystolic:
+    min: 110
+    max: 135
+  bloodPressureDiastolic:
+    min: 75
+    max: 100

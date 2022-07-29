@@ -1,0 +1,12 @@
+spring:
+  data.gemfire.pool.locators: localhost[10334]
+  application:
+    name: vital-edge-alerts-app
+server:
+  port: 8083
+vital:
+  alert:
+    note: "ALERT Detected!"
+vitals:
+  topic:
+    destination: "/topic/alerts"

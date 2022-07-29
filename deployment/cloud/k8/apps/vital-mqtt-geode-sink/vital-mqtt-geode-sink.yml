@@ -1,0 +1,50 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    run:  vital-mqtt-geode-sink
+  name:  vital-mqtt-geode-sink
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      name:  vital-mqtt-geode-sink
+  template:
+    metadata:
+      labels:
+        name:  vital-mqtt-geode-sink
+    spec:
+      containers:
+        - env:
+            - name: spring.application.name
+              value: vital-mqtt-geode-sink
+            - name: mqtt.connectionUrl
+              value: tcp://rabbitmq:1883
+            - name: mqtt.userName
+              valueFrom:
+                secretKeyRef:
+                  name: rabbitmq-default-user
+                  key: username
+            - name: mqtt.userPassword
+              valueFrom:
+                secretKeyRef:
+                  name: rabbitmq-default-user
+                  key: password
+            - name: spring.data.gemfire.pool.locators
+              value: 'cluster1-geode-locator[10334]'
+            - name: vitals.mqtt.topic
+              value: #
+            - name: spring.data.gemfire.security.username
+              valueFrom:
+                secretKeyRef:
+                  name: cluster1-geode-auth
+                  key: username
+            - name: spring.data.gemfire.security.password
+              valueFrom:
+                secretKeyRef:
+                  name: cluster1-geode-auth
+                  key: password
+          image: $DOCKER_HUB_ID/vital-mqtt-geode-sink:0.0.1-SNAPSHOT
+          name: vital-mqtt-geode-sink
+#          imagePullPolicy: Always
+          imagePullPolicy: IfNotPresent

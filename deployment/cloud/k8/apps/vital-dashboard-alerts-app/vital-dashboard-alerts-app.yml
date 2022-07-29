@@ -1,0 +1,47 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    run:  vital-dashboard-alerts-app
+  name:  vital-dashboard-alerts-app
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      name:  vital-dashboard-alerts-app
+  template:
+    metadata:
+      labels:
+        name:  vital-dashboard-alerts-app
+    spec:
+      containers:
+        - env:
+            - name: spring.data.gemfire.pool.locators
+              value: 'cluster1-geode-locator[10334]'
+            - name: spring.data.gemfire.security.username
+              valueFrom:
+                secretKeyRef:
+                  name: cluster1-geode-auth
+                  key: username
+            - name: spring.data.gemfire.security.password
+              valueFrom:
+                secretKeyRef:
+                  name: cluster1-geode-auth
+                  key: password
+          image: $DOCKER_HUB_ID/vital-dashboard-alerts-app:0.0.1-SNAPSHOT
+          name: vital-dashboard-alerts-app
+#          imagePullPolicy: Always
+          imagePullPolicy: IfNotPresent
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: vital-dashboard-alerts-app
+spec:
+  selector:
+    name: vital-dashboard-alerts-app
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 8083
+  type: LoadBalancer

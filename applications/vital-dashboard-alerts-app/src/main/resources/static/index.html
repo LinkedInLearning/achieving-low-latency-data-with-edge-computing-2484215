@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Vital Statistic Alerts</title>
+    <link href="/webjars/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/main.css" rel="stylesheet">
+    <script src="/webjars/jquery/jquery.min.js"></script>
+    <script src="/webjars/sockjs-client/sockjs.min.js"></script>
+    <script src="/webjars/stomp-websocket/stomp.min.js"></script>
+    <script src="/app.js"></script>
+</head>
+<body>
+<noscript><h2 style="color: #ff0000">Seems your browser doesn't support Javascript! Websocket relies on Javascript being
+    enabled. Please enable
+    Javascript and reload this page!</h2></noscript>
+
+<h1>Dashboard</h1>
+<div id="main-content" class="container">
+    <div>
+        <table>
+            <tr id="vitalOverviews">
+
+            </tr>
+        </table>
+    </div>
+
+    <div class="row">
+        <div class="col-md-6">
+            <form class="form-inline">
+                <div class="form-group">
+                    <label for="connect">Listen for Alerts:</label>
+                    <button id="connect" class="btn btn-default" type="submit">Subscribe</button>
+                    <button id="disconnect" class="btn btn-default" type="submit" disabled="disabled">Disconnect
+                    </button>
+                </div>
+            </form>
+        </div>
+
+        <div>
+            <h2>Alert Criteria </h2>
+            <pre>
+              heartRate &lt; 55 or heartRate &gt;  105
+              bodyTemperature &lt; 95 or bodyTemperature &gt;  103
+              respirationRate &lt; 12 or respirationRate &gt;  16
+              bloodPressureDiastolic &lt; 80
+              bloodPressureSystolic &gt; 130
+            </pre>
+        </div>
+        <div class="col-md-6">
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <table id="conversation" class="table table-striped">
+                <thead>
+                <tr>
+                    <th>Alerts</th>
+                </tr>
+                </thead>
+                <tbody id="greetings">
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+</body>
+</html>
