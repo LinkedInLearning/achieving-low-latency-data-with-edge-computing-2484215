@@ -1,0 +1,37 @@
+sleepPeriodPerRequest: 1000
+spring:
+  application:
+    name: vital-generator-mqtt-source
+  data.gemfire.pool.locators: localhost[10334]
+server:
+  port: 0
+mqtt:
+  userName: guest
+  userPassword: guest
+  connectionUrl: tcp://localhost:1883
+vitals:
+  count: 7
+  minLocationCode: 10000
+  maxLocationCode: 10003
+  mqtt:
+    topic: vitals
+  minVitalId:  1
+  maxVitalId: 8
+  urlPrefix: vitalImg/
+  names: John Smith, Bruce Barnes, Cherry Jones, Jane Foster, Tina Thompson, Jane Hill, Jessica Rose, Elizabeth Jordan,
+vital:
+  heartRate:
+    min: 52
+    max: 107
+  bodyTemperature:
+    min: 93
+    max: 110
+  respirationRate:
+    min: 10
+    max: 17
+  bloodPressureSystolic:
+    min: 110
+    max: 135
+  bloodPressureDiastolic:
+    min: 75
+    max: 100
